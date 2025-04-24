@@ -1,8 +1,7 @@
-# TaskList
+# Task List
 
-This backend allows users to manage their workload. After making an account, a user will be able to create, read, update, and delete their tasks.
-
-A possible solution is on the **solution** branch of this repository.
+This backend allows users to manage their workload. After making an account,
+a user will be able to create, read, update, and delete their tasks.
 
 ## Database
 
