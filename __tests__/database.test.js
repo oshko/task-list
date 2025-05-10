@@ -43,8 +43,8 @@ describe("Database schema", () => {
       expect.arrayContaining([
         { column_name: "id", data_type: "integer", is_nullable: "NO" },
         { column_name: "title", data_type: "text", is_nullable: "NO" },
-        { column_name: "done", data_type: "boolean", is_nullable: "YES" },
-        { column_name: "user_id", data_type: "integer", is_nullable: "YES" },
+        { column_name: "done", data_type: "boolean", is_nullable: "NO" },
+        { column_name: "user_id", data_type: "integer", is_nullable: "NO" },
       ])
     );
 
