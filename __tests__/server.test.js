@@ -27,7 +27,7 @@ describe("/users router", () => {
       const {
         rows: [user],
       } = await db.query(
-        "SELECT password FROM users WHERE username = 'tasktesttask'"
+        "SELECT password FROM users WHERE username = 'tasktesttask'",
       );
       expect(user.password).not.toBe("password");
     });
@@ -72,8 +72,8 @@ describe("/tasks router", () => {
       await db.query("SAVEPOINT s");
       const response = await request(app)
         .post("/tasks")
-        .set("Authorization", `Bearer ${token}`)
-        .send({});
+        .send({})
+        .set("Authorization", `Bearer ${token}`);
       expect(response.status).toBe(400);
       await db.query("ROLLBACK TO s");
     });
@@ -90,8 +90,8 @@ describe("/tasks router", () => {
     it("creates a new task and sends it back with status 201", async () => {
       const response = await request(app)
         .post("/tasks")
-        .set("Authorization", `Bearer ${token}`)
-        .send(task);
+        .send(task)
+        .set("Authorization", `Bearer ${token}`);
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty("id");
       taskId = response.body.id;
@@ -111,7 +111,7 @@ describe("/tasks router", () => {
         .set("Authorization", `Bearer ${token}`);
       expect(response.status).toBe(200);
       expect(response.body).toEqual(
-        expect.arrayContaining([expect.objectContaining(task)])
+        expect.arrayContaining([expect.objectContaining(task)]),
       );
     });
   });
@@ -127,16 +127,16 @@ describe("/tasks router", () => {
     it("sends 403 if the user does not own the task", async () => {
       const response = await request(app)
         .put("/tasks/1")
-        .set("Authorization", `Bearer ${token}`)
-        .send(updatedTask);
+        .send(updatedTask)
+        .set("Authorization", `Bearer ${token}`);
       expect(response.status).toBe(403);
     });
 
     it("updates the task", async () => {
       const response = await request(app)
         .put("/tasks/" + taskId)
-        .set("Authorization", `Bearer ${token}`)
-        .send(updatedTask);
+        .send(updatedTask)
+        .set("Authorization", `Bearer ${token}`);
       expect(response.status).toBe(200);
       expect(response.body).toEqual(expect.objectContaining(updatedTask));
     });
